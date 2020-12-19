@@ -72,7 +72,7 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     test_images = test_images / 255.0
 
     # Instantiating the network
-    model = keras.models.load_model('model-digits.h5')
+    model = keras.models.load_model('model-digits.h5', compile = False)
 
     # Instantiating Drawable canvas
     # mode = st.checkbox("Draw (or Delete)?", True)
@@ -147,7 +147,7 @@ elif mode == ('Fashion Items Using MNIST Dataset') :
     #getting dataset
     data = datasets.fashion_mnist
 
-    model = keras.models.load_model('model-fashion.h5')
+    model = keras.models.load_model('model-fashion.h5', ompile = False)
 
 
     # loading train and test data
@@ -236,7 +236,7 @@ elif mode == ('Handwritten Alphabets') :
 
 
     # Instantiating the network
-    model = keras.models.load_model('model-alphabets.h5')
+    model = keras.models.load_model('model-alphabets.h5',ompile = False)
 
     # Instantiating Drawable canvas
     # mode = st.checkbox("Draw (or Delete)?", True)
