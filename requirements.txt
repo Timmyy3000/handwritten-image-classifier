@@ -2,3 +2,6 @@ streamlit==0.72.0
 pandas==0.25.3
 numpy==1.16.1
 scikit-learn==0.22
+tensorflow == 2.0.0
+keras == 2.3.1
+streamlit_drawable_canvas == 0.5.1
