@@ -7,3 +7,4 @@ keras == 2.3.1
 streamlit_drawable_canvas == 0.5.1
 opencv-python-headless==4.2.0.32
 dataclasses == 0.8
+h5py ==  2.10.0   
