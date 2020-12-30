@@ -3,9 +3,8 @@ dataclasses
 h5py
 Keras
 numpy
-opencv-python
+opencv-contrib-python-headless
 pandas
-scikit-learn
 streamlit
 streamlit-drawable-canvas
 tensorflow
