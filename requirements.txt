@@ -5,7 +5,7 @@ Keras
 numpy
 opencv-python
 pandas
-scikit-learn=
+scikit-learn
 streamlit
 streamlit-drawable-canvas
 tensorflow
