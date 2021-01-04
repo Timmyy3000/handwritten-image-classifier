@@ -86,11 +86,11 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
         drawing_mode="freedraw",
         key='canvas')
 
-    if canvas_result.image_data is not None:
-        img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
-        rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-        st.write("Model's Input")
-        st.image(rescaled)
+#     if canvas_result.image_data is not None:
+#         img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
+#         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+#         st.write("Model's Input")
+#         st.image(rescaled)
 
 
     st.write('## Prediction')
@@ -250,11 +250,11 @@ elif mode == ('Handwritten Alphabets') :
         drawing_mode="freedraw",
         key='canvas')
 
-    if canvas_result.image_data is not None:
-        img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
-        rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
-        st.write("Model's Input")
-        st.image(rescaled)
+#     if canvas_result.image_data is not None:
+#         img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
+#         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+#         st.write("Model's Input")
+#         st.image(rescaled)
 
 
     st.write('## Prediction')
@@ -304,11 +304,11 @@ elif mode == ('Handwritten Three Lettered Words') :
         # key='canvas'
     )
 
-    if canvas_result.image_data is not None:
-        img = cv2.resize(canvas_result.image_data.astype('uint8'), (84, 28))
-        rescaled = cv2.resize(img, (SIZE * 3, SIZE), interpolation=cv2.INTER_NEAREST)
-        st.write("Model's Input")
-        st.image(rescaled)
+#     if canvas_result.image_data is not None:
+#         img = cv2.resize(canvas_result.image_data.astype('uint8'), (84, 28))
+#         rescaled = cv2.resize(img, (SIZE * 3, SIZE), interpolation=cv2.INTER_NEAREST)
+#         st.write("Model's Input")
+#         st.image(rescaled)
 
     st.write('## Prediction')
 
