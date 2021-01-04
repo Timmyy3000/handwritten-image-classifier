@@ -1,11 +1,11 @@
-
+-f https://download.pytorch.org/whl/torch_stable.html
 dataclasses
 h5py
 Keras
 numpy
-opencv-contrib-python-headless
+opencv-python-headless
 pandas
-streamlit
-streamlit-drawable-canvas
-tensorflow
+streamlit==0.66.0
+streamlit-drawable-canvas==0.3.0
+tensorflow==2.0.0
 pillow
