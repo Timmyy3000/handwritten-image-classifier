@@ -146,7 +146,7 @@ elif mode == ('Fashion Items Using MNIST Dataset') :
     #getting dataset
     data = datasets.fashion_mnist
 
-    model = keras.models.load_model('model-fashion.h5', ompile = False)
+    model = keras.models.load_model('model-fashion.h5', compile = False)
 
 
     # loading train and test data
@@ -235,7 +235,7 @@ elif mode == ('Handwritten Alphabets') :
 
 
     # Instantiating the network
-    model = keras.models.load_model('model-alphabets.h5',ompile = False)
+    model = keras.models.load_model('model-alphabets.h5',compile = False)
 
     # Instantiating Drawable canvas
     # mode = st.checkbox("Draw (or Delete)?", True)
