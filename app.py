@@ -1,7 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-from keras import datasets
 import streamlit as st
 import cv2
 from streamlit_drawable_canvas import st_canvas
@@ -10,7 +9,7 @@ import random
 from PIL import Image
 
 SIZE = 252
-
+datasets = keras.datasets 
 image = Image.open('mnist.jpg')
 
 st.image(image, caption='Handwritting Processing',use_column_width=True)
