@@ -5,7 +5,7 @@ keras==2.3.1
 numpy
 opencv-python-headless
 pandas
-streamlit==0.66.0
-streamlit-drawable-canvas==0.3.0
+streamlit==0.72.0
+streamlit-drawable-canvas==0.5.1
 tensorflow==2.0.0
 pillow
