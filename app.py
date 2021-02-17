@@ -11,15 +11,14 @@ from PIL import Image
 SIZE = 252
 
 image = Image.open('mnist.jpg')
-datasets = keras.datasets
-test = pd.read_csv('fashion-mnist_test.csv')
+
 st.image(image, caption='Handwritting Processing',use_column_width=True)
 
-# getting dataset
-data = datasets.fashion_mnist
-
-# loading train and test data
-(train_images, train_labels), (test_images, test_labels) = data.load_data()
+# # getting dataset
+# datasets = keras.datasets
+# test = pd.read_csv('fashion-mnist_test.csv')
+# # loading train and test data
+# (train_images, train_labels), (test_images, test_labels) = data.load_data()
 
 # HEADER
 st.write('''
