@@ -1,7 +1,6 @@
 
 from tensorflow import keras
 import numpy as np
-
 import streamlit as st
 import cv2
 from streamlit_drawable_canvas import st_canvas
@@ -10,11 +9,18 @@ import random
 from PIL import Image
 
 SIZE = 252
-datasets = keras.datasets
 
 image = Image.open('mnist.jpg')
-
+datasets = keras.datasets
+test = pd.read_csv('fashion-mnist_test.csv')
 st.image(image, caption='Handwritting Processing',use_column_width=True)
+
+# getting dataset
+data = datasets.fashion_mnist
+
+# loading train and test data
+(train_images, train_labels), (test_images, test_labels) = data.load_data()
+
 # HEADER
 st.write('''
     # Image Processing Neural Network
@@ -22,6 +28,8 @@ st.write('''
     -----
      
      This is a Neural Network that analyzes and identifies handwritten data in real time
+     
+     *Click [here](www.google.com), to find my github repository for this project*
      
   
      
@@ -59,18 +67,12 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     # User Inputs
     st.subheader('User Input')
     st.write('''Write any single digit from 0 - 9''')
-    # getting dataset
-    data = datasets.mnist
 
-    # loading train and test data
-    (train_images, train_labels), (test_images, test_labels) = data.load_data()
 
     # different labels in dataset for later encoding
     class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
-    # normalizing values
-    train_images = train_images / 255.0
-    test_images = test_images / 255.0
+
 
     # Instantiating the network
     model = keras.models.load_model('model-digits.h5')
@@ -146,14 +148,9 @@ elif mode == ('Fashion Items Using MNIST Dataset') :
 
     st.image(image, use_column_width=True)
 
-    #getting dataset
-    data = datasets.fashion_mnist
+
 
     model = keras.models.load_model('model-fashion.h5')
-
-
-    # loading train and test data
-    (train_images, train_labels), (test_images, test_labels) = data.load_data()
 
     # different labels in dataset for later encoding
     class_names = ['Top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Boot']
@@ -161,6 +158,9 @@ elif mode == ('Fashion Items Using MNIST Dataset') :
     # normalizing values
     train_images = train_images / 255.0
     test_images = test_images / 255.0
+
+
+
 
     # Instantiating Drawable canvas
     st.subheader('Data Classes')
@@ -282,6 +282,36 @@ elif mode == ('Handwritten Alphabets') :
 
 elif mode == ('Handwritten Three Lettered Words') :
 
+    st.subheader('Convolutional Neural Layers Structure')
+    st.write("""
+
+          - Input Conv2D Layer - 28 * 28 individual pixel values
+          - MaxPooling Layer
+          - Droupout Layer
+          - Flattened Layer
+          - Dense Layer - 128 neurons
+          - Output Layer - 26 nodes
+
+          """)
+
+    st.subheader('Training')
+    st.write("""
+
+                This A_Z Handwritten Dataset is available at https://www.kaggle.com/sachinpatel21/az-handwritten-alphabets-in-csv-format
+
+                The dataset contains 26 folders (A-Z) containing handwritten images in size 2828 pixels, each alphabet in the image is centre fitted to 2020 pixel box.
+
+                The images are taken from NIST(https://www.nist.gov/srd/nist-special-database-19) and NMIST large dataset and few other sources which were then formatted as mentioned above.
+
+                This Model has been trained to ~98% accuracy in analyzing and recognizing fashion items using a Convolutional Neural Network
+
+                *Real Time Training is coming Soon*
+                """)
+
+    st.subheader('Handwritten Alphabets Identifier')
+    st.write(
+        'This Neural network is trained using a Kaggle Handrwritten A_Z Dataset to indentify handwritten alphabets normalized to a 28 * 28 grid')
+
     # User Inputs
     st.subheader('User Input')
     st.write('''Write any latter from A - Z''')
@@ -303,7 +333,7 @@ elif mode == ('Handwritten Three Lettered Words') :
         width=SIZE *3,
         height=SIZE,
         drawing_mode="freedraw",
-        # key='canvas'
+         key='canvas'
     )
 
     if canvas_result.image_data is not None:
