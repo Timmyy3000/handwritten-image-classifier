@@ -4,6 +4,7 @@
 
 ![텍스트](visualizeMNIST.gif) 
 
+This web app is deployed, (here)[https://share.streamlit.io/timmyy3000/handwritten-image-classifier]
 ## Neural Network
 
 The Neural Network consists of three layers ;
