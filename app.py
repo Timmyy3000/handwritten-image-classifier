@@ -15,7 +15,7 @@ datasets = keras.datasets
 image = Image.open('mnist.jpg')
 
 #getting dataset
-# data = datasets.fashion_mnist
+data = datasets.fashion_mnist
 
 
 
