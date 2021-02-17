@@ -29,7 +29,7 @@ st.write('''
 ''')
 
 st.subheader('Mode Selection')
-mode = st.selectbox('Select a mode ', ('Handwritten Digits Using MNIST Dataset', 'Fashion Items Using MNIST Dataset', 'Handwritten Alphabets', 'Handwritten Three Lettered Words'))
+mode = st.selectbox('Select a mode ', ('Handwritten Digits Using MNIST Dataset', 'Handwritten Alphabets', 'Handwritten Three Lettered Words'))
 
 if mode ==('Handwritten Digits Using MNIST Dataset') :
 
