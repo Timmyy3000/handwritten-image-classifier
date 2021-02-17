@@ -4,7 +4,7 @@
 
 ![텍스트](visualizeMNIST.gif) 
 
-This web app is deployed, [here](https://share.streamlit.io/timmyy3000/handwritten-image-classifier)
+This web app is deployed, [here](https://share.streamlit.io/timmyy3000/handwritten-image-classifier/Timmyy3000/gitpod-setup/app.py)
 ## Neural Network
 
 The Neural Network consists of three layers ;
