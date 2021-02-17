@@ -17,16 +17,16 @@ image = Image.open('mnist.jpg')
 #getting dataset
 data = datasets.fashion_mnist
 
-model = keras.models.load_model('model-fashion.h5')
+
 
 
 # loading train and test data
-(train_images, train_labels), (test_images, test_labels) = data.load_data()
+# (train_images, train_labels), (test_images, test_labels) = data.load_data()
 
 
-# normalizing values
-train_images = train_images / 255.0
-test_images = test_images / 255.0
+# # normalizing values
+# train_images = train_images / 255.0
+# test_images = test_images / 255.0
 
 st.image(image, caption='Handwritting Processing',use_column_width=True)
 # HEADER
@@ -155,6 +155,7 @@ elif mode == ('Fashion Items Using MNIST Dataset') :
     image = Image.open('head.png')
 
     st.image(image, use_column_width=True)
+    model = keras.models.load_model('model-fashion.h5')
 
    
 
