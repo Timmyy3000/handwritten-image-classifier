@@ -14,19 +14,6 @@ datasets = keras.datasets
 
 image = Image.open('mnist.jpg')
 
-#getting dataset
-data = datasets.fashion_mnist
-
-
-
-
-# loading train and test data
-# (train_images, train_labels), (test_images, test_labels) = data.load_data()
-
-
-# # normalizing values
-# train_images = train_images / 255.0
-# test_images = test_images / 255.0
 
 st.image(image, caption='Handwritting Processing',use_column_width=True)
 # HEADER
@@ -37,7 +24,7 @@ st.write('''
      
      This is a Neural Network that analyzes and identifies handwritten data in real time
      
-  
+      *Click [here](https://github.com/Timmyy3000/Image-processor/edit/Timmyy3000/gitpod-setup), to find my github repository for this project*
      
 ''')
 
@@ -128,75 +115,7 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
 
 
 
-elif mode == ('Fashion Items Using MNIST Dataset') :
 
-    st.subheader('Neural Layers Structure')
-    st.write("""
-      - Input Layer - 784 neurons gotten from 28 * 28 individual pixel values
-      - Hidden Layer - 128 neurons
-      - Output Layer - 10 nodes
-
-      """)
-
-    st.subheader('Training')
-    st.write("""
-
-        This Fashion MNIST database is available at https://github.com/zalandoresearch/fashion-mnist
-
-        It is a dataset of Zalando's article images — consisting of a training set of 60,000 examples and a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes. The dataset serves as a direct drop-in replacement for the original MNIST dataset for benchmarking machine learning algorithms. It shares the same image size and structure of training and testing splits.
-
-        This Model has been trained to ~90% accuracy in analyzing and recognizing fashion items using a 3 layered Neural Network
-
-        *Real Time Training is coming Soon*
-        """)
-
-    # FASHION DATA SET IDENTIFIER
-
-    image = Image.open('head.png')
-
-    st.image(image, use_column_width=True)
-    model = keras.models.load_model('model-fashion.h5')
-
-   
-
-    # different labels in dataset for later encoding
-    class_names = ['Top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Boot']
-
-
-    # Instantiating Drawable canvas
-    st.subheader('Data Classes')
-    st.write(pd.Series(class_names))
-    st.write('## Prediction')
-
-    st.write('Select Random Item from Test Set')
-
-    input_image = ''
-    input_label = ''
-
-    if st.button('Predict') :
-        index = random.randint(0, 10000)
-        input_image = test_images[index]
-        input_label = class_names[test_labels[index]]
-        rescaled = cv2.resize(input_image, (190, 190), interpolation=cv2.INTER_NEAREST)
-        st.write("Model's Input")
-        st.image(rescaled)
-        st.write(f'Actual : {input_label}')
-
-        st.write('#### Model Metrics ')
-        st.write(pd.DataFrame({'Accuracy': '89.09', "Loss": '0.02954'}, index=[0]))
-
-        val = model.predict(np.array(input_image).reshape(1,28,28))
-        st.write(f'# Prediction : {class_names[np.argmax(val[0])]}')
-        st.write("""
-                                    Prediction Probability 
-                                    """)
-        bar = pd.Series(val[0], index=class_names)
-        st.bar_chart(bar)
-
-        st.write("""
-                   The following table dipicts the prediction probability 
-                   """)
-        st.write(bar)
 
 
 elif mode == ('Handwritten Alphabets') :
