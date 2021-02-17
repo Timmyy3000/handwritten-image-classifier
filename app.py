@@ -1,12 +1,6 @@
-import tensorflow
-from tensorflow import keras
-import numpy as np
+
 import streamlit as st
-import cv2
-from streamlit_drawable_canvas import st_canvas
-import pandas as pd
-import random
-from PIL import Image
+
 
 SIZE = 252
 
