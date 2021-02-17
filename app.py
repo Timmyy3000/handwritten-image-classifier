@@ -24,7 +24,7 @@ st.write('''
      
      This is a Neural Network that analyzes and identifies handwritten data in real time
      
-      *Click [here](https://github.com/Timmyy3000/Image-processor/edit/Timmyy3000/gitpod-setup), to find my github repository for this project*
+      *Click [here](https://github.com/Timmyy3000/handwritten-image-classifier), to find my github repository for this project*
      
 ''')
 
