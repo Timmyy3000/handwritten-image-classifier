@@ -14,6 +14,20 @@ datasets = keras.datasets
 
 image = Image.open('mnist.jpg')
 
+#getting dataset
+data = datasets.fashion_mnist
+
+model = keras.models.load_model('model-fashion.h5')
+
+
+# loading train and test data
+(train_images, train_labels), (test_images, test_labels) = data.load_data()
+
+
+# normalizing values
+train_images = train_images / 255.0
+test_images = test_images / 255.0
+
 st.image(image, caption='Handwritting Processing',use_column_width=True)
 # HEADER
 st.write('''
@@ -59,19 +73,15 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     # User Inputs
     st.subheader('User Input')
     st.write('''Write any single digit from 0 - 9''')
-    # getting dataset
-    data = datasets.mnist
+
 
     # loading train and test data
-    (train_images, train_labels), (test_images, test_labels) = data.load_data()
+   
 
     # different labels in dataset for later encoding
     class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
-    # normalizing values
-    train_images = train_images / 255.0
-    test_images = test_images / 255.0
-
+ 
     # Instantiating the network
     model = keras.models.load_model('model-digits.h5')
 
@@ -146,21 +156,11 @@ elif mode == ('Fashion Items Using MNIST Dataset') :
 
     st.image(image, use_column_width=True)
 
-    #getting dataset
-    data = datasets.fashion_mnist
-
-    model = keras.models.load_model('model-fashion.h5')
-
-
-    # loading train and test data
-    (train_images, train_labels), (test_images, test_labels) = data.load_data()
+   
 
     # different labels in dataset for later encoding
     class_names = ['Top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Boot']
 
-    # normalizing values
-    train_images = train_images / 255.0
-    test_images = test_images / 255.0
 
     # Instantiating Drawable canvas
     st.subheader('Data Classes')
