@@ -10,7 +10,7 @@ import random
 from PIL import Image
 
 SIZE = 252
-st.set_option('deprecation.showfileUploaderEncoding', Fals
+st.set_option('deprecation.showfileUploaderEncoding', False)
 
 image = Image.open('mnist.jpg')
 upload = False
