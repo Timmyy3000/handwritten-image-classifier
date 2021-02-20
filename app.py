@@ -13,7 +13,7 @@ SIZE = 252
 st.set_option('deprecation.showfileUploaderEncoding', Fals
 
 image = Image.open('mnist.jpg')
-
+upload = False
 
 st.image(image, caption='Handwritting Processing',use_column_width=True)
 # HEADER
