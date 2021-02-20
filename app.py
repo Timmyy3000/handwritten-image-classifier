@@ -65,7 +65,7 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
 
-        image_cv= cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+        image_cv= cv2.rotate((cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)), cv2.ROTATE_90_CLOCKWISE)
         display_img = cv2.resize(image_cv, (300, 300), interpolation=cv2.INTER_NEAREST)
         st.image(display_img, caption='Uploaded Image.', use_column_width=True)
         upload = True
@@ -187,7 +187,7 @@ elif mode == ('Handwritten Alphabets') :
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
 
-        image_cv= cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+        image_cv= cv2.rotate((cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)), cv2.ROTATE_90_CLOCKWISE)
         display_img = cv2.resize(image_cv, (300, 300), interpolation=cv2.INTER_NEAREST)
         st.image(display_img, caption='Uploaded Image.', use_column_width=True)
         upload = True
