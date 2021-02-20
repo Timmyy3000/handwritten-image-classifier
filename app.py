@@ -56,6 +56,17 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     # NUMBERS DATA SET IDENTIFIER
 
     trained = False;
+    
+    st.subheader('Image Input')
+    st.write('''Upload image of a number''')
+    uploaded_file = st.file_uploader("Choose an image ...", type="jpg")
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+
+        image_cv= cv2.rotate((cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)), cv2.ROTATE_90_CLOCKWISE)
+        display_img = cv2.resize(image_cv, (300, 300), interpolation=cv2.INTER_NEAREST)
+        st.image(display_img, caption='Uploaded Image.', use_column_width=True)
+        upload = True
 
     # User Inputs
     st.subheader('User Input')
@@ -85,11 +96,40 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
         key='canvas'
     )
 
-    if canvas_result.image_data is not None:
+    if canvas_result.image_data is not None and not upload:
         img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
         st.write("Model's Input")
         st.image(rescaled)
+
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    elif upload:
+
+        (thresh, img) = cv2.threshold(image_cv, 90, 255, cv2.THRESH_BINARY_INV)
+
+        img = cv2.resize(img, (120, 120), interpolation=cv2.INTER_CUBIC)
+
+
+        rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+        st.write("Model's Input")
+        st.image(rescaled)
+
+
+        img = cv2.GaussianBlur(img, (5, 5), 0)
+        # steps 2 and 3: Extract the Region of Interest in the image and center in square
+        points = cv2.findNonZero(img)
+        x, y, w, h = cv2.boundingRect(points)
+        if (w > 0 and h > 0):
+            if w > h:
+                y = y - (w - h) // 2
+                img = img[y:y + w, x:x + w]
+            else:
+                x = x - (h - w) // 2
+                img = img[y:y + h, x:x + h]
+
+
+        img = cv2.resize(img, (28, 28), interpolation=cv2.INTER_NEAREST)
+
 
 
     st.write('## Prediction')
