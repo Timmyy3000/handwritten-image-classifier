@@ -1,21 +1,21 @@
-
+import tensorflow
 from tensorflow import keras
 import numpy as np
-
 import streamlit as st
 import cv2
 from streamlit_drawable_canvas import st_canvas
 import pandas as pd
-import random
 from PIL import Image
 
 SIZE = 252
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 image = Image.open('mnist.jpg')
-upload = False
 
 st.image(image, caption='Handwritting Processing',use_column_width=True)
+
+upload = False
+
 # HEADER
 st.write('''
     # Image Processing Neural Network
@@ -24,12 +24,14 @@ st.write('''
      
      This is a Neural Network that analyzes and identifies handwritten data in real time
      
-      *Click [here](https://github.com/Timmyy3000/handwritten-image-classifier), to find my github repository for this project*
+    *Click [here](https://github.com/Timmyy3000/handwritten-image-classifier), to find my github repository for this project*
+     
+  
      
 ''')
 
 st.subheader('Mode Selection')
-mode = st.selectbox('Select a mode ', ('Handwritten Digits Using MNIST Dataset', 'Handwritten Alphabets', 'Handwritten Three Lettered Words'))
+mode = st.selectbox('Select a mode ', ('Handwritten Digits Using MNIST Dataset', 'Fashion Items Using MNIST Dataset', 'Handwritten Alphabets', 'Handwritten Three Lettered Words'))
 
 if mode ==('Handwritten Digits Using MNIST Dataset') :
 
@@ -56,14 +58,14 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     # NUMBERS DATA SET IDENTIFIER
 
     trained = False;
-    
+
     st.subheader('Image Input')
     st.write('''Upload image of a number''')
     uploaded_file = st.file_uploader("Choose an image ...", type="jpg")
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
 
-        image_cv= cv2.rotate((cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)), cv2.ROTATE_90_CLOCKWISE)
+        image_cv= cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
         display_img = cv2.resize(image_cv, (300, 300), interpolation=cv2.INTER_NEAREST)
         st.image(display_img, caption='Uploaded Image.', use_column_width=True)
         upload = True
@@ -73,13 +75,11 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     st.write('''Write any single digit from 0 - 9''')
 
 
-    # loading train and test data
-   
-
     # different labels in dataset for later encoding
     class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
- 
+
+
     # Instantiating the network
     model = keras.models.load_model('model-digits.h5')
 
@@ -99,10 +99,10 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     if canvas_result.image_data is not None and not upload:
         img = cv2.resize(canvas_result.image_data.astype('uint8'), (28, 28))
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         st.write("Model's Input")
         st.image(rescaled)
 
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     elif upload:
 
         (thresh, img) = cv2.threshold(image_cv, 90, 255, cv2.THRESH_BINARY_INV)
@@ -110,25 +110,20 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
         img = cv2.resize(img, (120, 120), interpolation=cv2.INTER_CUBIC)
 
 
+        img = cv2.GaussianBlur(img, (5, 5), 0)
+        # steps 2 and 3: Extract the Region of Interest in the image and center in square
+
+
+        img = cv2.resize(img, (28, 28), interpolation=cv2.INTER_NEAREST)
+
         rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
         st.write("Model's Input")
         st.image(rescaled)
 
 
-        img = cv2.GaussianBlur(img, (5, 5), 0)
-        # steps 2 and 3: Extract the Region of Interest in the image and center in square
-        points = cv2.findNonZero(img)
-        x, y, w, h = cv2.boundingRect(points)
-        if (w > 0 and h > 0):
-            if w > h:
-                y = y - (w - h) // 2
-                img = img[y:y + w, x:x + w]
-            else:
-                x = x - (h - w) // 2
-                img = img[y:y + h, x:x + h]
 
 
-        img = cv2.resize(img, (28, 28), interpolation=cv2.INTER_NEAREST)
+
 
 
 
@@ -138,10 +133,8 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     st.write('#### Model Metrics ')
     st.write(pd.DataFrame({'Accuracy' : '98.57', "Loss" : '0.0464'}, index = [0]))
     if st.button('Predict'):
-
-
-       
-        val = model.predict(img.reshape(1, 28, 28))
+        test_x = np.array(img).astype('float32')
+        val = model.predict(test_x.reshape(1, 28, 28, 1))
         st.write(f'# Result : {np.argmax(val[0])}')
         st.bar_chart(val[0])
 
@@ -149,8 +142,6 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
                 The following table dipicts the prediction probability 
                 """)
         st.write(val)
-
-
 
 
 
@@ -181,13 +172,26 @@ elif mode == ('Handwritten Alphabets') :
             
             The images are taken from NIST(https://www.nist.gov/srd/nist-special-database-19) and NMIST large dataset and few other sources which were then formatted as mentioned above.
             
-            This Model has been trained to ~98% accuracy in analyzing and recognizing fashion items using a Convolutional Neural Network
+            This Model has been trained to ~98% accuracy in analyzing and recognizing alphabets characters using a Convolutional Neural Network
 
             *Real Time Training is coming Soon*
             """)
 
     st.subheader('Handwritten Alphabets Identifier')
     st.write('This Neural network is trained using a Kaggle Handrwritten A_Z Dataset to indentify handwritten alphabets normalized to a 28 * 28 grid')
+
+    #Image input
+    st.subheader('Image Input')
+    st.write('''Upload image of a number''')
+    uploaded_file = st.file_uploader("Choose an image ...", type="jpg")
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+
+        image_cv= cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+        display_img = cv2.resize(image_cv, (300, 300), interpolation=cv2.INTER_NEAREST)
+        st.image(display_img, caption='Uploaded Image.', use_column_width=True)
+        upload = True
+
 
     # User Inputs
     st.subheader('User Input')
@@ -218,6 +222,20 @@ elif mode == ('Handwritten Alphabets') :
         st.write("Model's Input")
         st.image(rescaled)
 
+    elif upload:
+
+        (thresh, img) = cv2.threshold(image_cv, 90, 255, cv2.THRESH_BINARY_INV)
+
+        img = cv2.resize(img, (120, 120), interpolation=cv2.INTER_CUBIC)
+
+        img = cv2.GaussianBlur(img, (5, 5), 0)
+        # steps 2 and 3: Extract the Region of Interest in the image and center in square
+
+        img = cv2.resize(img, (28, 28), interpolation=cv2.INTER_NEAREST)
+
+        rescaled = cv2.resize(img, (SIZE, SIZE), interpolation=cv2.INTER_NEAREST)
+        st.write("Model's Input")
+        st.image(rescaled)
 
     st.write('## Prediction')
 
@@ -227,8 +245,8 @@ elif mode == ('Handwritten Alphabets') :
     if st.button('Predict'):
 
 
-        test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        test_x = np.array(test_x).astype('float32')
+
+        test_x = np.array(img).astype('float32')
         val = model.predict(test_x.reshape(1,28,28,1))
         st.write(f'# Result : {alphabets_class[np.argmax(val[0])]}')
         bar = pd.DataFrame(val[0], index=alphabets_class)
@@ -241,6 +259,36 @@ elif mode == ('Handwritten Alphabets') :
 
 
 elif mode == ('Handwritten Three Lettered Words') :
+
+    st.subheader('Convolutional Neural Layers Structure')
+    st.write("""
+
+          - Input Conv2D Layer - 28 * 28 individual pixel values
+          - MaxPooling Layer
+          - Droupout Layer
+          - Flattened Layer
+          - Dense Layer - 128 neurons
+          - Output Layer - 26 nodes
+
+          """)
+
+    st.subheader('Training')
+    st.write("""
+
+                This A_Z Handwritten Dataset is available at https://www.kaggle.com/sachinpatel21/az-handwritten-alphabets-in-csv-format
+
+                The dataset contains 26 folders (A-Z) containing handwritten images in size 2828 pixels, each alphabet in the image is centre fitted to 2020 pixel box.
+
+                The images are taken from NIST(https://www.nist.gov/srd/nist-special-database-19) and NMIST large dataset and few other sources which were then formatted as mentioned above.
+
+                This Model has been trained to ~98% accuracy in analyzing and recognizing fashion items using a Convolutional Neural Network
+
+                *Real Time Training is coming Soon*
+                """)
+
+    st.subheader('Handwritten Alphabets Identifier')
+    st.write(
+        'This Neural network is trained using a Kaggle Handrwritten A_Z Dataset to indentify handwritten alphabets normalized to a 28 * 28 grid')
 
     # User Inputs
     st.subheader('User Input')
@@ -263,7 +311,7 @@ elif mode == ('Handwritten Three Lettered Words') :
         width=SIZE *3,
         height=SIZE,
         drawing_mode="freedraw",
-        # key='canvas'
+         key='canvas'
     )
 
     if canvas_result.image_data is not None:
