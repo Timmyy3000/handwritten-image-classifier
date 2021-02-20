@@ -140,8 +140,8 @@ if mode ==('Handwritten Digits Using MNIST Dataset') :
     if st.button('Predict'):
 
 
-        test_x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        val = model.predict(test_x.reshape(1, 28, 28))
+       
+        val = model.predict(img.reshape(1, 28, 28))
         st.write(f'# Result : {np.argmax(val[0])}')
         st.bar_chart(val[0])
 
