@@ -10,7 +10,7 @@ import random
 from PIL import Image
 
 SIZE = 252
-datasets = keras.datasets
+st.set_option('deprecation.showfileUploaderEncoding', Fals
 
 image = Image.open('mnist.jpg')
 
